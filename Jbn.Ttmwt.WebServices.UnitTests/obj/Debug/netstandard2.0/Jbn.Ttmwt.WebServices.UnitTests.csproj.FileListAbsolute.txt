@@ -1,0 +1,3 @@
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.UnitTests\obj\Debug\netstandard2.0\Jbn.Ttmwt.WebServices.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.UnitTests\obj\Debug\netstandard2.0\Jbn.Ttmwt.WebServices.UnitTests.AssemblyInfoInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.UnitTests\obj\Debug\netstandard2.0\Jbn.Ttmwt.WebServices.UnitTests.AssemblyInfo.cs

@@ -1,0 +1,11 @@
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.csproj.CoreCompileInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.AssemblyInfoInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.AssemblyInfo.cs
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.deps.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.runtimeconfig.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.runtimeconfig.dev.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.pdb
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.csprojResolveAssemblyReference.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.WebServices.ClientGenerator\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.WebServices.ClientGenerator.pdb

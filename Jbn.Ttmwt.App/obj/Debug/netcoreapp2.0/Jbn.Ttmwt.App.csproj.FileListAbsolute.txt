@@ -1,0 +1,11 @@
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.csprojResolveAssemblyReference.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.App.deps.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.App.runtimeconfig.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.App.runtimeconfig.dev.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.App.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\bin\Debug\netcoreapp2.0\Jbn.Ttmwt.App.pdb
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.csproj.CoreCompileInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.AssemblyInfoInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.AssemblyInfo.cs
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.Ttmwt\Jbn.Ttmwt.App\obj\Debug\netcoreapp2.0\Jbn.Ttmwt.App.pdb

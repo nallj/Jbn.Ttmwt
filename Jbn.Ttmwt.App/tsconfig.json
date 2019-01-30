@@ -1,0 +1,15 @@
+﻿{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "es2015",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "sourceMap": true
+  },
+  "compileOnSave": true,
+  "files": ["./src/api-client.ts"],
+  "exclude": [
+    "node_modules"
+  ]
+}

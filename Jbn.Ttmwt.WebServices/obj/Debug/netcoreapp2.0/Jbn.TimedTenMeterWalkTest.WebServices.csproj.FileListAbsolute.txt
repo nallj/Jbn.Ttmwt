@@ -1,0 +1,11 @@
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\bin\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.deps.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\bin\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.runtimeconfig.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\bin\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.runtimeconfig.dev.json
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\bin\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.csprojResolveAssemblyReference.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.csproj.CoreCompileInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.AssemblyInfoInputs.cache
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.AssemblyInfo.cs
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\bin\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.pdb
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.dll
+C:\Users\Nero7\Documents\Visual Studio 2017\Projects\Jbn.TimedTenMeterWalkTest\Jbn.TimedTenMeterWalkTest.WebServices\obj\Debug\netcoreapp2.0\Jbn.TimedTenMeterWalkTest.WebServices.pdb
