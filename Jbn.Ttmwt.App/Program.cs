@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Jbn.TimedTenMeterWalkTest.App
+namespace Jbn.Ttmwt.App
 {
     public class Program
     {

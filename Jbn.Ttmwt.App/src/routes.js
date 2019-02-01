@@ -1,27 +1,23 @@
-﻿import React from 'react';
+﻿'use strict';
+
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { Home } from './Home';
 import { Records } from './Records'
 
-const App = () => (
-  <Router history={browserHistory}>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/records">Records</Link>
-          </li>
-        </ul>
-      </nav>
+const RouteInfo = [
+  { url: '/', text: 'Home', component: Home, exact: true },
+  { url: '/reports', text: 'Reports', component: Records }
+];
 
-      <Route path="/" exact component={Home} />
-      <Route path="/records" component={Records} />
-    </div>
-  </Router>
-)
-ReactDOM.render(<App />, document.getElementById('root'));
+export const Routes = () => RouteInfo.map(r =>
+  <Route path={r.url} exact={r.exact} component={r.component} />
+);
+
+export const RouteNavLinks = () => RouteInfo.map(r =>
+  <li className="nav-item">
+    <Link to={r.url} className="nav-link">{r.text}</Link>
+  </li>
+);

@@ -4,7 +4,10 @@ export class Records extends Component {
 
   render() {
     return (
-      <p>This is my records screen!</p>
+      <div className="container">
+        <h2 className="mt-2">Records</h2>
+        <p>This is my records screen!</p>
+      </div>
     )
   }
 

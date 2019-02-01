@@ -1,38 +1,32 @@
-﻿import React from 'react';
+﻿'use strict';
+
+import React from 'react';
 import ReactDOM from 'react-dom';
 //import { Router, Route } from 'react-router';
-import { browserHistory, BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { browserHistory, BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
-import { Home } from './Home';
-import { Records } from './Records';
+import './styles.css';
+import { RouteNavLinks, Routes } from './routes';
 import { ApiClient } from './api-client';
 
+const routeNavLinks = RouteNavLinks();
+const routes = Routes();
 
-//const Home = () => <h2>Home</h2>;
-//const Records = () => <h2>About</h2>;
-
-
-//const App = () => (
-//    <div>
-//        <h1>Hello world!!</h1>
-//    </div>
-//)
 const App = () => (
   <Router history={browserHistory}>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/records">Records</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className="bg-light">
 
-      <Route path="/" exact component={Home} />
-      <Route path="/records" component={Records} />
+      <header>
+        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <h1 className="navbar-brand">Timed Ten Minute Walk Test</h1>
+          <ul className="navbar-nav mr-auto">{routeNavLinks}</ul>
+        </nav>
+      </header>
+
+      <main>{routes}</main>
+
     </div>
   </Router>  
 )

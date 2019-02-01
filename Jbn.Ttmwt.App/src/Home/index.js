@@ -4,8 +4,8 @@ export class Home extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Lol gross</h2>
+      <div className="container">
+        <h2 className="mt-2">Home</h2>
         <p>This is my home screen!</p>
       </div>
     );
