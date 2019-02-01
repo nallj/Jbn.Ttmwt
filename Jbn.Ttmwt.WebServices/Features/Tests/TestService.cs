@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jbn.TimedTenMeterWalkTest.WebServices.Features.Templates
+namespace Jbn.Ttmwt.WebServices.Features.Tests
 {
-    interface ITemplateService
+    public class TestService : ITestService
     {
     }
 }

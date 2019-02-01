@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Jbn.TimedTenMeterWalkTest.WebServices.Features.Records
+namespace Jbn.Ttmwt.WebServices.Features.Records
 {
-    interface IRecordService
+    public interface IRecordService
     {
+        IEnumerable<Record> GetRecords();
+        Task DeleteRecord(int recordId);
     }
 }

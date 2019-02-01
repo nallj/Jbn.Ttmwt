@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jbn.TimedTenMeterWalkTest.WebServices
+namespace Jbn.Ttmwt.WebServices
 {
     public class Startup
     {
@@ -52,12 +52,12 @@ namespace Jbn.TimedTenMeterWalkTest.WebServices
 
             // Database Context
             var appDbConnString = Configuration.GetConnectionString("AppDbContext");
-            //services
-            //    .AddDbContext<DAL.AppDbContext>(options =>
-            //    {
-            //        options.UseSqlServer(appDbConnString);
-            //        options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            //    });
+            services
+                .AddDbContext<DAL.AppDbContext>(options =>
+                {
+                    options.UseSqlServer(appDbConnString);
+                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                });
 
             // Swashbuckle
             services.AddSwaggerGen(c =>

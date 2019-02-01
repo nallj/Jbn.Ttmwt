@@ -1,15 +1,22 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Jbn.TimedTenMeterWalkTest.WebServices.Features.Records
+namespace Jbn.Ttmwt.WebServices.Features.Records
 {
-    [Produces("application/json")]
     [Route("api/Records")]
     public class RecordsController : Controller
     {
+        [HttpDelete("{recordId}")]
+        public async Task DeleteRecord(int recordId, [FromServices] IRecordService recordSvc)
+        {
+            await recordSvc.DeleteRecord(recordId);
+        }
+
+        [HttpGet]
+        public IEnumerable<Record> GetRecords([FromServices] IRecordService recordSvc)
+        {
+            return recordSvc.GetRecords();
+        }
     }
 }

@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Jbn.TimedTenMeterWalkTest.WebServices": {
+    "Jbn.Ttmwt.WebServices": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
