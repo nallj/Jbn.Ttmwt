@@ -60,4 +60,15 @@
     <Folder Include="Tables" />
     <Folder Include="Scripts" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Proctor.sql" />
+    <Build Include="Tables\Patient.sql" />
+    <Build Include="Tables\Device.sql" />
+    <Build Include="Tables\Test.sql" />
+    <Build Include="Tables\Remarks.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\AddInitialDevices.sql" />
+    <None Include="Jbn.Ttmwt.Db-development.publish.xml" />
+  </ItemGroup>
 </Project>
