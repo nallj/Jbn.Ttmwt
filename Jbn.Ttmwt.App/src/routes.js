@@ -1,11 +1,9 @@
-﻿'use strict';
-
-import React from 'react';
+﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory, BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { browserHistory, Route, Link } from "react-router-dom";
 
-import { Home } from './Home';
-import { Records } from './Records'
+import Home from './Home';
+import Records from './Records';
 
 const RouteInfo = [
   { url: '/', text: 'Home', component: Home, exact: true },

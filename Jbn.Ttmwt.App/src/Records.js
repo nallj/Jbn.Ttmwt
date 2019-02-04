@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 
-export class Records extends Component {
+class Records extends Component {
 
   render() {
     return (
@@ -12,3 +12,4 @@ export class Records extends Component {
   }
 
 }
+export default Records;
