@@ -1,0 +1,25 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Device] (Table)
+       [dbo].[Patient] (Table)
+       [dbo].[Proctor] (Table)
+       [dbo].[Remarks] (Table)
+       [dbo].[Test] (Table)
+       Default Constraint: unnamed constraint on [dbo].[Patient] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Test] (Default Constraint)
+       [dbo].[FK_Remarks_TestId] (Foreign Key)
+       [dbo].[FK_Test_ProctorId] (Foreign Key)
+       [dbo].[FK_Test_PatientId] (Foreign Key)
+       [dbo].[FK_Test_DeviceId] (Foreign Key)
+
+** Supporting actions

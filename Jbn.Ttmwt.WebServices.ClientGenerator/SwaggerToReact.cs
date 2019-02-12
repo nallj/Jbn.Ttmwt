@@ -14,21 +14,8 @@ namespace Jbn.Ttmwt.WebServices.ClientGenerator
     {
 
         public string SwaggerUrl { get; set; }
-
-        /// <summary>
-        /// Removes all code for keys, and replaces any references with values.
-        /// Necessary because for every reused enum and new instance is created.
-        /// </summary>
-        //public Dictionary<string, string> EnumsToReplace { get; set; }
-
-        /// <summary>
-        /// Unfortunately NSwag is built on version 2.0.0 of the Swagger API which only supports string-based enums.  Once
-        /// NSwag upgrades the Swagger API to 2.2.0 number-based enums will be supported and this functionality can be removed.
-        /// Issue fixed (but not implemented in NSwag) here: https://github.com/swagger-api/swagger-codegen/pull/2508
-        /// </summary>
-        //public List<string> EnumsToNormalize { get; set; }
-
-        public string GenerateCode()//string basePath)
+        
+        public string GenerateCode()
         {
             var doc = Task.Run(async () => await GetSwaggerDocAsync()).Result;
 
@@ -37,7 +24,7 @@ namespace Jbn.Ttmwt.WebServices.ClientGenerator
                 ClassName = "{controller}ApiClient",
                 GenerateClientClasses = true,
                 GenerateDtoTypes = true,
-                OperationNameGenerator = new MultipleClientsFromOperationIdOperationNameGenerator(),
+                OperationNameGenerator = new SingleClientFromOperationIdOperationNameGenerator(), //new MultipleClientsFromOperationIdOperationNameGenerator(),
                 PromiseType = PromiseType.Promise,
                 Template = TypeScriptTemplate.Fetch,
                 //WrapResponses = true // With a SwaggerResponse class.

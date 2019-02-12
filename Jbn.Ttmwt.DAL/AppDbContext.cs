@@ -61,11 +61,15 @@ namespace Jbn.Ttmwt.DAL
 
             modelBuilder.Entity<Remarks>(entity =>
             {
+                entity.HasIndex(e => e.TestId)
+                    .HasName("UQ_Remarks_TestId")
+                    .IsUnique();
+
                 entity.Property(e => e.Content).IsRequired();
 
                 entity.HasOne(d => d.Test)
-                    .WithMany(p => p.Remarks)
-                    .HasForeignKey(d => d.TestId)
+                    .WithOne(p => p.Remarks)
+                    .HasForeignKey<Remarks>(d => d.TestId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Remarks_TestId");
             });

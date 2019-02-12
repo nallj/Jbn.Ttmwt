@@ -8,14 +8,21 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using Jbn.Ttmwt.WebServices.Features.Device;
+using Jbn.Ttmwt.WebServices.Features.Patient;
+using Jbn.Ttmwt.WebServices.Features.Proctor;
+using Jbn.Ttmwt.WebServices.Features.Records;
+using Jbn.Ttmwt.WebServices.Features.Tests;
+using Jbn.Ttmwt.WebServices.Infrastructure.Mappings;
 
 namespace Jbn.Ttmwt.WebServices
 {
     public class Startup
     {
+
+        private const string corsPolicyKey = "CorsPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,22 +37,24 @@ namespace Jbn.Ttmwt.WebServices
                 .AddAutoMapper()
                 .AddMvc();
 
-            //Mapper.Initialize(config =>
-            //{
-            //    config.AddProfiles(new Type[] {
-            //            typeof(aMappings)
-            //        });
-            //});
+            Mapper.Initialize(config =>
+            {
+                config.AddProfiles(new Type[] {
+                        typeof(DalToModel),
+                        typeof(ModelToDal)
+                    });
+            });
 
             // Cross-Origin Resource Sharing (CORS)
             var appOrigin = Configuration.GetValue<string>("AppOrigin");
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder =>
+                options.AddPolicy(corsPolicyKey, builder =>
                     builder
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins(new string[] { appOrigin }));
+                        .AllowAnyOrigin());
+                        //.WithOrigins(new string[] { appOrigin }));
             });
 
 
@@ -63,6 +72,14 @@ namespace Jbn.Ttmwt.WebServices
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v0", new Info() { Version = "v0", Title = "Jbn.Ttmwt.WebServices v0" })
             );
+
+            // Application services.
+            services
+                .AddScoped<IDeviceService, DeviceService>()
+                .AddScoped<IPatientService, PatientService>()
+                .AddScoped<IProctorService, ProctorService>()
+                .AddScoped<IRecordService, RecordService>()
+                .AddScoped<ITestService, TestService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +90,7 @@ namespace Jbn.Ttmwt.WebServices
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(corsPolicyKey);
             app.UseStaticFiles();
             app.UseMvc();
 

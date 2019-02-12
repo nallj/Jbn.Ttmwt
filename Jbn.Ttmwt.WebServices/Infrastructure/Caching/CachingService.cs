@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jbn.TimedTenMeterWalkTest.WebServices.Infrastructure.Caching
+namespace Jbn.Ttmwt.WebServices.Infrastructure.Caching
 {
     public class CachingService
     {

@@ -5,11 +5,6 @@ namespace Jbn.Ttmwt.DAL
 {
     public partial class Test
     {
-        public Test()
-        {
-            Remarks = new HashSet<Remarks>();
-        }
-
         public int Id { get; set; }
         public int ProctorId { get; set; }
         public int PatientId { get; set; }
@@ -28,6 +23,6 @@ namespace Jbn.Ttmwt.DAL
         public virtual Device Device { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual Proctor Proctor { get; set; }
-        public virtual ICollection<Remarks> Remarks { get; set; }
+        public virtual Remarks Remarks { get; set; }
     }
 }

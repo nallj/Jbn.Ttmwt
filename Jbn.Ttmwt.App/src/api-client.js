@@ -24,9 +24,9 @@ var ApiClient = /** @class */ (function () {
     /**
      * @return Success
      */
-    ApiClient.prototype.getAll = function () {
+    ApiClient.prototype.getExistingDevices = function () {
         var _this = this;
-        var url_ = this.baseUrl + "/api/Values";
+        var url_ = this.baseUrl + "/api/Devices";
         url_ = url_.replace(/[?&]$/, "");
         var options_ = {
             method: "GET",
@@ -35,10 +35,10 @@ var ApiClient = /** @class */ (function () {
             }
         };
         return this.http.fetch(url_, options_).then(function (_response) {
-            return _this.processGetAll(_response);
+            return _this.processGetExistingDevices(_response);
         });
     };
-    ApiClient.prototype.processGetAll = function (response) {
+    ApiClient.prototype.processGetExistingDevices = function (response) {
         var _this = this;
         var status = response.status;
         var _headers = {};
@@ -61,53 +61,11 @@ var ApiClient = /** @class */ (function () {
         return Promise.resolve(null);
     };
     /**
-     * @param value (optional)
      * @return Success
      */
-    ApiClient.prototype.post = function (value) {
+    ApiClient.prototype.getExistingPatients = function () {
         var _this = this;
-        var url_ = this.baseUrl + "/api/Values";
-        url_ = url_.replace(/[?&]$/, "");
-        var content_ = JSON.stringify(value);
-        var options_ = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-        return this.http.fetch(url_, options_).then(function (_response) {
-            return _this.processPost(_response);
-        });
-    };
-    ApiClient.prototype.processPost = function (response) {
-        var status = response.status;
-        var _headers = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach(function (v, k) { return _headers[k] = v; });
-        }
-        ;
-        if (status === 200) {
-            return response.text().then(function (_responseText) {
-                return;
-            });
-        }
-        else if (status !== 200 && status !== 204) {
-            return response.text().then(function (_responseText) {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve(null);
-    };
-    /**
-     * @return Success
-     */
-    ApiClient.prototype.get = function (id) {
-        var _this = this;
-        var url_ = this.baseUrl + "/api/Values/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        var url_ = this.baseUrl + "/api/Patients";
         url_ = url_.replace(/[?&]$/, "");
         var options_ = {
             method: "GET",
@@ -116,10 +74,10 @@ var ApiClient = /** @class */ (function () {
             }
         };
         return this.http.fetch(url_, options_).then(function (_response) {
-            return _this.processGet(_response);
+            return _this.processGetExistingPatients(_response);
         });
     };
-    ApiClient.prototype.processGet = function (response) {
+    ApiClient.prototype.processGetExistingPatients = function (response) {
         var _this = this;
         var status = response.status;
         var _headers = {};
@@ -142,29 +100,24 @@ var ApiClient = /** @class */ (function () {
         return Promise.resolve(null);
     };
     /**
-     * @param value (optional)
      * @return Success
      */
-    ApiClient.prototype.put = function (id, value) {
+    ApiClient.prototype.getExistingProctors = function () {
         var _this = this;
-        var url_ = this.baseUrl + "/api/Values/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        var url_ = this.baseUrl + "/api/Proctors";
         url_ = url_.replace(/[?&]$/, "");
-        var content_ = JSON.stringify(value);
         var options_ = {
-            body: content_,
-            method: "PUT",
+            method: "GET",
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
         return this.http.fetch(url_, options_).then(function (_response) {
-            return _this.processPut(_response);
+            return _this.processGetExistingProctors(_response);
         });
     };
-    ApiClient.prototype.processPut = function (response) {
+    ApiClient.prototype.processGetExistingProctors = function (response) {
+        var _this = this;
         var status = response.status;
         var _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -173,7 +126,9 @@ var ApiClient = /** @class */ (function () {
         ;
         if (status === 200) {
             return response.text().then(function (_responseText) {
-                return;
+                var result200 = null;
+                result200 = _responseText === "" ? null : JSON.parse(_responseText, _this.jsonParseReviver);
+                return result200;
             });
         }
         else if (status !== 200 && status !== 204) {
@@ -186,22 +141,22 @@ var ApiClient = /** @class */ (function () {
     /**
      * @return Success
      */
-    ApiClient.prototype.delete = function (id) {
+    ApiClient.prototype.deleteRecord = function (recordId) {
         var _this = this;
-        var url_ = this.baseUrl + "/api/Values/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        var url_ = this.baseUrl + "/api/Records/{recordId}";
+        if (recordId === undefined || recordId === null)
+            throw new Error("The parameter 'recordId' must be defined.");
+        url_ = url_.replace("{recordId}", encodeURIComponent("" + recordId));
         url_ = url_.replace(/[?&]$/, "");
         var options_ = {
             method: "DELETE",
             headers: {}
         };
         return this.http.fetch(url_, options_).then(function (_response) {
-            return _this.processDelete(_response);
+            return _this.processDeleteRecord(_response);
         });
     };
-    ApiClient.prototype.processDelete = function (response) {
+    ApiClient.prototype.processDeleteRecord = function (response) {
         var status = response.status;
         var _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -211,6 +166,88 @@ var ApiClient = /** @class */ (function () {
         if (status === 200) {
             return response.text().then(function (_responseText) {
                 return;
+            });
+        }
+        else if (status !== 200 && status !== 204) {
+            return response.text().then(function (_responseText) {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve(null);
+    };
+    /**
+     * @return Success
+     */
+    ApiClient.prototype.getRecords = function () {
+        var _this = this;
+        var url_ = this.baseUrl + "/api/Records";
+        url_ = url_.replace(/[?&]$/, "");
+        var options_ = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+        return this.http.fetch(url_, options_).then(function (_response) {
+            return _this.processGetRecords(_response);
+        });
+    };
+    ApiClient.prototype.processGetRecords = function (response) {
+        var _this = this;
+        var status = response.status;
+        var _headers = {};
+        if (response.headers && response.headers.forEach) {
+            response.headers.forEach(function (v, k) { return _headers[k] = v; });
+        }
+        ;
+        if (status === 200) {
+            return response.text().then(function (_responseText) {
+                var result200 = null;
+                result200 = _responseText === "" ? null : JSON.parse(_responseText, _this.jsonParseReviver);
+                return result200;
+            });
+        }
+        else if (status !== 200 && status !== 204) {
+            return response.text().then(function (_responseText) {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve(null);
+    };
+    /**
+     * @param submission (optional)
+     * @return Success
+     */
+    ApiClient.prototype.postTest = function (submission) {
+        var _this = this;
+        var url_ = this.baseUrl + "/api/Tests";
+        url_ = url_.replace(/[?&]$/, "");
+        var content_ = JSON.stringify(submission);
+        var options_ = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+        return this.http.fetch(url_, options_).then(function (_response) {
+            return _this.processPostTest(_response);
+        });
+    };
+    ApiClient.prototype.processPostTest = function (response) {
+        var _this = this;
+        var status = response.status;
+        var _headers = {};
+        if (response.headers && response.headers.forEach) {
+            response.headers.forEach(function (v, k) { return _headers[k] = v; });
+        }
+        ;
+        if (status === 200) {
+            return response.text().then(function (_responseText) {
+                var result200 = null;
+                result200 = _responseText === "" ? null : JSON.parse(_responseText, _this.jsonParseReviver);
+                return result200;
             });
         }
         else if (status !== 200 && status !== 204) {
