@@ -9,8 +9,8 @@ namespace Jbn.Ttmwt.WebServices.Infrastructure.Mappings
     {
         public DalToModel()
         {
-            CreateMap<Test, RecordIds>();
-                // Implicit: PatientId, ProctorId
+            CreateMap<Test, Record>();
+                // Implicit: CreatedOn, Id, Summary
         }
     }
 }

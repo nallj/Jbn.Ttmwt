@@ -243,7 +243,7 @@ class Home extends Component {
   handleSummaryClick(event) {
     const range = document.createRange();
     const selection = window.getSelection();
-    range.selectNodeContents(document.getElementById('summary'));
+    range.selectNodeContents(event.target);
 
     selection.removeAllRanges();
     selection.addRange(range);

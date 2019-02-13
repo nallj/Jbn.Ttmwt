@@ -239,11 +239,9 @@ export class ApiClient {
 }
 
 export interface Record {
-    takenOn?: Date | undefined;
-    summary?: string | undefined;
     id?: number | undefined;
-    proctorId?: number | undefined;
-    patientId?: number | undefined;
+    createdOn?: Date | undefined;
+    summary?: string | undefined;
 }
 
 export interface Submission {

@@ -2,9 +2,11 @@
 
 namespace Jbn.Ttmwt.WebServices.Features.Records
 {
-    public class Record : RecordIds
+    public class Record //: RecordIds
     {
-        public DateTimeOffset TakenOn { get; set; }
+        public int Id { get; set; }
+        //public DateTimeOffset TestedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
         public string Summary { get; set; }
     }
 }

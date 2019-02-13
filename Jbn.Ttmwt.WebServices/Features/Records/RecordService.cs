@@ -1,6 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Jbn.Ttmwt.DAL;
@@ -26,8 +26,9 @@ namespace Jbn.Ttmwt.WebServices.Features.Records
 
         public async Task DeleteRecord(int recordId)
         {
-            var targetRecord = await dbContext.Test
-                .FirstOrDefaultAsync(x => x.Id == recordId);
+            var targetRecord = dbContext.Test
+                .FirstOrDefault(x => x.Id == recordId);
+            
             dbContext.Remove(targetRecord);
             await dbContext.SaveChangesAsync();
         }

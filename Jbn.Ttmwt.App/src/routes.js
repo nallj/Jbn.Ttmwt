@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory, Route, Link } from "react-router-dom";
 
 import Home from './Home/Home';
-import Records from './Records';
+import Records from './Records/Records';
 
 const routeInfo = [
   {
@@ -14,10 +14,10 @@ const routeInfo = [
     render: (props) => <Home {...props} />
   },
   {
-    url: '/reports',
-    text: 'Reports',
+    url: '/records',
+    text: 'Records',
     //component: Records
-    render: () => <Records />
+    render: (props) => <Records {...props} />
   }
 ];
 
