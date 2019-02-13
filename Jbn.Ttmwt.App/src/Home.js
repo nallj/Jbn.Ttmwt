@@ -96,7 +96,7 @@ class Home extends Component {
     const f = this.state.form;
     return `On the date of ${f.dateOfTest.toDateString()} the Timed Ten Meter Walk Test was administered by ${f.proctor} to the patient ${f.patient}${f.device == 'N/A' ? '' : ` with the assistance of a ${f.device}`}.  Two trials were attempted each at a comfortable walking pace and at the maximum walking pace.  In the "comfortable pace" trials the patient clocked in at ${f.comfPace1} sec and ${f.comfPace2} sec.  This averages up to ${f.comfPaceAvgTime} sec, or a speed of ${f.comfPaceAvgSpeed} m/s.  In the "maximum pace" trials the patient clocked in at ${f.maxPace1} sec and ${f.maxPace2} sec.  This averages up to ${f.maxPaceAvgTime} sec, or a speed of ${f.maxPaceAvgSpeed} m/s.${f.remarks ? `  Additional Remarks: ${f.remarks}` : ''}`;
   }
-  
+
   handleAverageUpdateCommon(varPrefix) {
     const trial1 = this.state.form[varPrefix + 'Pace1'];
     const trial2 = this.state.form[varPrefix + 'Pace2'];
@@ -164,6 +164,7 @@ class Home extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log('state: ', this.state);
+
     this.apiClient.postTest(this.state.form)
       .then(x => console.log('SUBMITTED! ', x))
       //.catch(this.handleError);
@@ -291,12 +292,12 @@ class Home extends Component {
     const formObj = Object.assign({}, this.state.form, map)
     this.setState({ form: formObj }, postSetFn);
   }
-
+  
   updateMultipleTypeaheadOptions(map) {
     const formObj = Object.assign({}, this.state.typeaheadOptions, map)
     this.setState({ typeaheadOptions: formObj });
   }
-
+  
   updateVmValue(key, val) {
     const vmObj = Object.assign({}, this.state.vm, { [key]: val })
     this.setState({ vm: vmObj });
@@ -305,6 +306,7 @@ class Home extends Component {
   
   render() {
     return (
+
       <div className={'container' + (this.state.typeaheadOptions.devices.devices ? '' : ' sadness')}>
         <h2 className="mt-4 mb-3">Test Form</h2>
 
@@ -347,6 +349,7 @@ class Home extends Component {
             onChangeFn={this.handleTypeaheadChangeCommon.bind(this, 'device')}
             onInputChangeFn={this.handleTypeaheadInputChangeCommon.bind(this, 'device')}
             options={this.state.typeaheadOptions.devices}
+            options={mockDevices}
           />
           
           <div className="form-group row">

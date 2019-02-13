@@ -25,7 +25,6 @@ main > .container {
 .inherit-height {
     height: inherit;
 }
-
 #error-overlay {
     position: absolute;
     z-index: 99999;

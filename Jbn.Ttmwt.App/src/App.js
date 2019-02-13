@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory, BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import './styles.css';
 import { RouteNavLinks, Routes } from './routes';
@@ -37,6 +38,8 @@ class App extends Component {
     this.setState({ errorOccured: true });
   }
 
+
+
   render() {
     return (
       <Router history={browserHistory}>
@@ -45,14 +48,14 @@ class App extends Component {
           <div id="error-overlay" className={this.state.errorOccured ? ' visible' : ''}>
             <p>{this.state.error}</p>
           </div>
-
+          
           <header>
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
               <h1 className="navbar-brand">Timed Ten Meter Walk Test</h1>
               <ul className="navbar-nav mr-auto">{routeNavLinks}</ul>
             </nav>
           </header>
-
+          
           <main className={this.state.errorOccured ? 'error' : ''}>{this.routes()}</main>
         </div>
       </Router>
