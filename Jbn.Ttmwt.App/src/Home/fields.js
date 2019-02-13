@@ -33,7 +33,7 @@ export const ConditionalSummary = (props) => (
 
           <p id="summary" className="form-control ptr-cursor inherit-height" onClick={props.handleSummaryClick} title="Click to copy text.">{props.summary}</p>
         </div>
-        <button type="submit" className="btn btn-primary mb-5 ">Save Test Data</button>
+        <button disabled={props.disabled} type="submit" className="btn btn-primary mb-5 ">Save Test Data</button>
       </Fragment>
     : <Fragment>
         <div className="row">
@@ -98,6 +98,7 @@ export const TypeaheadField = (props) => (
         isInvalid={!!props.formError}
         onChange={props.onChangeFn}
         options={props.options}
+        ref={props.refSetter}
       />
     </div>
     <FieldErrorCommon error={props.formError} />

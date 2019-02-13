@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import { AveragesRow, ConditionalSummary, FieldErrorCommon, PaceField, TypeaheadField } from './fields';
-import { ApiClient } from './api-client';
+import { ApiClient } from '../api-client';
 
 // TODO: Create utility classes.
 class Home extends Component {
@@ -12,6 +12,12 @@ class Home extends Component {
   constructor(props) {
     super(props);
     console.log('props', props);
+    
+    this.typeaheadRefs = {
+      device: undefined,
+      patient: undefined,
+      proctor: undefined
+    };
 
     this.apiClient = props.apiClient;
     this.state = {
@@ -43,6 +49,7 @@ class Home extends Component {
       },
       isFormInvalid: false,
       ignoreCompletionFieldKeys: ['comfPaceAvgTime', 'comfPaceAvgSpeed', 'maxPaceAvgTime', 'maxPaceAvgSpeed', 'remarks', 'summary'],
+      saving: false,
       typeaheadOptions: {
         devices: [],
         patients: [],
@@ -65,6 +72,63 @@ class Home extends Component {
   }
 
 
+  addNewTypeaheadOptions(form, postSetFn) {
+    const newOptions = Object.assign({}, this.state.typeaheadOptions);
+    
+    this.addOptionIfNotPresent(form, newOptions, 'device', 'devices');
+    this.addOptionIfNotPresent(form, newOptions, 'patient', 'patients');
+    this.addOptionIfNotPresent(form, newOptions, 'proctor', 'proctors');
+    
+    this.updateMultipleTypeaheadOptions(newOptions, postSetFn);
+  }
+
+  addOptionIfNotPresent(form, options, fromKey, toKey) {
+    const formValue = form[fromKey];
+    const exisiting = options[toKey];
+    
+    console.log(exisiting);
+    if (!exisiting.find(x => x == formValue)) {
+      exisiting.push(formValue);
+    }
+  }
+  
+  clearForm(postSetFn) {
+    const newForm = {
+      proctor: '',
+      patient: '',
+      dateOfTest: new Date(),
+      device: '',
+      comfPace1: NaN,
+      comfPace2: NaN,
+      comfPaceAvgTime: NaN,
+      comfPaceAvgSpeed: NaN,
+      maxPace1: NaN,
+      maxPace2: NaN,
+      maxPaceAvgTime: NaN,
+      maxPaceAvgSpeed: NaN,
+      remarks: '',
+      summary: ''
+    };
+    this.clearTypeaheads();
+    this.setState({ form: newForm }, postSetFn);
+  }
+
+  clearTypeaheads() {
+    this.typeaheadRefs.device.getInstance().clear();
+    this.typeaheadRefs.patient.getInstance().clear();
+    this.typeaheadRefs.proctor.getInstance().clear();
+  }
+
+  clearVm(postSetFn) {
+    const newVm = {
+      comfPace1: '',
+      comfPace2: '',
+      maxPace1: '',
+      maxPace2: ''
+    };
+    this.setState({ vm: newVm }, postSetFn);
+  }
+
   componentDidMount() {
     const p0 = this.apiClient.getExistingDevices();
     const p1 = this.apiClient.getExistingPatients();
@@ -82,14 +146,6 @@ class Home extends Component {
         this.updateMultipleTypeaheadOptions(updates);
       })
       .catch(this.handleError);
-  }
-
-  handleIfErred(resp) {
-    if (!resp.ok) {
-      this.handleError();
-      throw new Error('Good day, sir.  It appears I have malfunctioned.')
-    }
-    return resp;
   }
   
   generateSummary() {
@@ -137,6 +193,14 @@ class Home extends Component {
     this.updateFormValue('device', val);
   }
 
+  handleIfErred(resp) {
+    if (!resp.ok) {
+      this.handleError();
+      throw new Error('Good day, sir.  It appears I have malfunctioned.')
+    }
+    return resp;
+  }
+
   handleNumberInputChangeCommon(event, postSetFn) {
 
     const vmValue = event.target.value;
@@ -163,11 +227,17 @@ class Home extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('state: ', this.state);
 
-    this.apiClient.postTest(this.state.form)
-      .then(x => console.log('SUBMITTED! ', x))
-      //.catch(this.handleError);
+    const form = this.state.form;
+    const saveTest = () => this.apiClient.postTest(form)
+      .then(x => {
+        console.log('SUBMITTED! ', x);
+        this.addNewTypeaheadOptions(form, this.resetForm);
+      })
+      .catch(this.handleError);
+
+    // Update state then save the form.
+    this.updateSaving(true, saveTest);
   }
 
   handleSummaryClick(event) {
@@ -207,6 +277,16 @@ class Home extends Component {
   handleTypeaheadInputChangeCommon(fieldKey, val) {
     this.testFieldValidityCommon(fieldKey, val);
     this.updateFormValue(fieldKey, val);
+  }
+
+  resetForm() {
+    const stopSaving = () => this.setState({ saving: false });
+    const clearVm = this.clearVm.bind(this, stopSaving);
+    this.clearForm(clearVm);
+  }
+
+  setTypeaheadRef(key, typeahead) {
+    this.typeaheadRefs[key] = typeahead;
   }
 
   testDatepickerValidity(val) {
@@ -263,6 +343,8 @@ class Home extends Component {
       formErrorVal = 'This field must be a number.';
     } else if (val === 0 || val < 0) {
       formErrorVal = 'This field must be greater than 0.';
+    } else if (val > 9999.99) {
+      formErrorVal = 'This value cannot be this large.';
     }
     this.updateFormErrorValue(fieldKey, formErrorVal);
   }
@@ -293,11 +375,15 @@ class Home extends Component {
     this.setState({ form: formObj }, postSetFn);
   }
   
-  updateMultipleTypeaheadOptions(map) {
+  updateMultipleTypeaheadOptions(map, postSetFn) {
     const formObj = Object.assign({}, this.state.typeaheadOptions, map)
-    this.setState({ typeaheadOptions: formObj });
+    this.setState({ typeaheadOptions: formObj }, postSetFn);
   }
-  
+
+  updateSaving(val, postSetFn) {
+    this.setState({ saving: val }, postSetFn);
+  }
+
   updateVmValue(key, val) {
     const vmObj = Object.assign({}, this.state.vm, { [key]: val })
     this.setState({ vm: vmObj });
@@ -319,6 +405,7 @@ class Home extends Component {
             onChangeFn={this.handleTypeaheadChangeCommon.bind(this, 'proctor')}
             onInputChangeFn={this.handleTypeaheadInputChangeCommon.bind(this, 'proctor')}
             options={this.state.typeaheadOptions.proctors}
+            refSetter={this.setTypeaheadRef.bind(this, 'proctor')}
           />
 
           <TypeaheadField
@@ -328,6 +415,7 @@ class Home extends Component {
             onChangeFn={this.handleTypeaheadChangeCommon.bind(this, 'patient')}
             onInputChangeFn={this.handleTypeaheadInputChangeCommon.bind(this, 'patient')}
             options={this.state.typeaheadOptions.patients}
+            refSetter={this.setTypeaheadRef.bind(this, 'patient')}
           />
           
           <div className="form-group row">
@@ -349,7 +437,7 @@ class Home extends Component {
             onChangeFn={this.handleTypeaheadChangeCommon.bind(this, 'device')}
             onInputChangeFn={this.handleTypeaheadInputChangeCommon.bind(this, 'device')}
             options={this.state.typeaheadOptions.devices}
-            options={mockDevices}
+            refSetter={this.setTypeaheadRef.bind(this, 'device')}
           />
           
           <div className="form-group row">
@@ -418,6 +506,7 @@ class Home extends Component {
             handleSummaryClick={this.handleSummaryClick}
             isFormInvalid={this.state.isFormInvalid}
             summary={this.state.form.summary}
+            disabled={this.state.saving}
           />
           
         </form>

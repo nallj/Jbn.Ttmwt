@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { browserHistory, BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'react-datepicker/dist/react-datepicker.css';
 
 import './styles.css';
 import { RouteNavLinks, Routes } from './routes';
