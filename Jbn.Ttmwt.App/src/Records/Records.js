@@ -1,21 +1,7 @@
 ﻿import React, { Component } from 'react';
 
-const ConditinalParagraph = (props) => (
-  props.show ?
-    <p>No records exist yet!</p>
-    : ''
-);
-
-const RecordElements = (props) => props.records.map(x =>
-  <div className="row">
-    <div className="col-9">
-      <p onClick={props.onSummaryClick}>{x.summary}</p>
-    </div>
-    <div className="col-3">
-      <button className="btn btn-danger" disabled={x.disabled} onClick={props.onButtonClick.bind(this, x.id)}>Delete Record</button>
-    </div>
-  </div>
-);
+import { handleCopyClick } from '../shared';
+import { ConditinalParagraph, RecordElements } from './elements';
 
 class Records extends Component {
 
@@ -62,17 +48,6 @@ class Records extends Component {
     this.disableRecord(id, deleteCall);
   }
 
-  handleRecordClick(event) {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    
-    range.selectNodeContents(event.target);
-
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand("copy");
-  }
-
   removeRecord(id) {
     const targetRecordIndex = this.getRecordIndex(id);
     const records = this.state.records;
@@ -88,7 +63,7 @@ class Records extends Component {
 
         <ConditinalParagraph show={!this.state.records.length} />
 
-        <RecordElements records={this.state.records} onButtonClick={this.handleDelete} onSummaryClick={this.handleRecordClick} />
+        <RecordElements records={this.state.records} onButtonClick={this.handleDelete} onSummaryClick={handleCopyClick} />
       </div>
     );
   }

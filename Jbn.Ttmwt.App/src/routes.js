@@ -22,11 +22,11 @@ const routeInfo = [
 ];
 
 export const Routes = (props) => routeInfo.map(r => 
-  <Route path={r.url} exact={r.exact} render={r.render.bind(this, props)} />
+  <Route key={r.url} path={r.url} exact={r.exact} render={r.render.bind(this, props)} />
 );
 
 export const RouteNavLinks = () => routeInfo.map(r => (
-  <li className="nav-item">
+  <li className="nav-item" key={r.url}>
     <Link to={r.url} className="nav-link">{r.text}</Link>
   </li>
 ));

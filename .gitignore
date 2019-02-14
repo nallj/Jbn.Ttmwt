@@ -1,0 +1,10 @@
+
+.vs
+.git
+
+bin
+obj
+node_modules
+
+*.dbmdl
+*.jfm

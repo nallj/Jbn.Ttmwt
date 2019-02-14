@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -56,9 +54,7 @@ namespace Jbn.Ttmwt.WebServices
                         .AllowAnyOrigin());
                         //.WithOrigins(new string[] { appOrigin }));
             });
-
-
-
+            
             // Database Context
             var appDbConnString = Configuration.GetConnectionString("AppDbContext");
             services

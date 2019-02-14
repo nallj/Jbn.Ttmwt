@@ -4,14 +4,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import { AveragesRow, ConditionalSummary, FieldErrorCommon, PaceField, TypeaheadField } from './fields';
-import { ApiClient } from '../api-client';
+import { handleCopyClick } from '../shared';
+import stateUtility from './stateUtility';
+import validityUtility from './validityUtility';
 
-// TODO: Create utility classes.
 class Home extends Component {
   
   constructor(props) {
     super(props);
-    console.log('props', props);
     
     this.typeaheadRefs = {
       device: undefined,
@@ -63,12 +63,14 @@ class Home extends Component {
       }
     };
 
+    this.generateSummary = this.generateSummary.bind(this);
     this.handleError = this.props.events.error;
-    this.handleIfErred = this.handleIfErred.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleRemarksChange = this.handleRemarksChange.bind(this);
-    this.handleSummaryClick = this.handleSummaryClick.bind(this);
+
+    this.stateUtil = new stateUtility(this);
+    this.validUtil = new validityUtility(this, this.generateSummary);
   }
 
 
@@ -79,14 +81,13 @@ class Home extends Component {
     this.addOptionIfNotPresent(form, newOptions, 'patient', 'patients');
     this.addOptionIfNotPresent(form, newOptions, 'proctor', 'proctors');
     
-    this.updateMultipleTypeaheadOptions(newOptions, postSetFn);
+    this.stateUtil.updateMultipleTypeaheadOptions(newOptions, postSetFn);
   }
 
   addOptionIfNotPresent(form, options, fromKey, toKey) {
     const formValue = form[fromKey];
     const exisiting = options[toKey];
     
-    console.log(exisiting);
     if (!exisiting.find(x => x == formValue)) {
       exisiting.push(formValue);
     }
@@ -136,14 +137,13 @@ class Home extends Component {
 
     Promise
       .all([p0, p1, p2])
-      //.then(this.handleIfErred)
       .then(r => {
         const updates = {
           devices: r[0],
           patients: r[1],
           proctors: r[2]
         };
-        this.updateMultipleTypeaheadOptions(updates);
+        this.stateUtil.updateMultipleTypeaheadOptions(updates);
       })
       .catch(this.handleError);
   }
@@ -165,14 +165,14 @@ class Home extends Component {
         [varPrefix + 'PaceAvgTime']: avgTime,
         [varPrefix + 'PaceAvgSpeed']: avgSpeed
       };
-      this.updateMultipleFormValue(updates);
+      this.stateUtil.updateMultipleFormValue(updates);
 
     } else {
       const updates = {
         [varPrefix + 'PaceAvgTime']: NaN,
         [varPrefix + 'PaceAvgSpeed']: NaN
       };
-      this.updateMultipleFormValue(updates);
+      this.stateUtil.updateMultipleFormValue(updates);
     }
   }
 
@@ -185,32 +185,24 @@ class Home extends Component {
   }
 
   handleDateChange(val) {
-    this.testDatepickerValidity(val);
-    this.updateFormValue('dateOfTest', val);
+    this.validUtil.testDatepickerValidity(val, this.generateSummary);
+    this.stateUtil.updateFormValue('dateOfTest', val);
   }
 
   handleDeviceChange(val) {
-    this.updateFormValue('device', val);
+    this.stateUtil.updateFormValue('device', val);
   }
-
-  handleIfErred(resp) {
-    if (!resp.ok) {
-      this.handleError();
-      throw new Error('Good day, sir.  It appears I have malfunctioned.')
-    }
-    return resp;
-  }
-
+  
   handleNumberInputChangeCommon(event, postSetFn) {
 
     const vmValue = event.target.value;
     const value = parseFloat(vmValue);
 
     const fieldKey = event.target.id;
-    this.updateVmValue(fieldKey, vmValue);
+    this.stateUtil.updateVmValue(fieldKey, vmValue);
     
-    this.updateFormValue(fieldKey, value, postSetFn);
-    this.testPaceFieldValidity(fieldKey, vmValue, value);
+    this.stateUtil.updateFormValue(fieldKey, value, postSetFn);
+    this.validUtil.testPaceFieldValidity(fieldKey, vmValue, value, this.generateSummary);
   }
 
   handleMaxAverageUpdate() {
@@ -222,7 +214,9 @@ class Home extends Component {
   }
 
   handleRemarksChange(event) {
-    this.updateFormValue('remarks', event.target.value, this.testFormValidity);
+    const postUpdateFn = () =>
+      this.validUtil.testFormValidity(this.generateSummary);
+    this.stateUtil.updateFormValue('remarks', event.target.value, postUpdateFn);
   }
 
   handleSubmit(event) {
@@ -230,24 +224,11 @@ class Home extends Component {
 
     const form = this.state.form;
     const saveTest = () => this.apiClient.postTest(form)
-      .then(x => {
-        console.log('SUBMITTED! ', x);
-        this.addNewTypeaheadOptions(form, this.resetForm);
-      })
+      .then(x => this.addNewTypeaheadOptions(form, this.resetForm))
       .catch(this.handleError);
 
     // Update state then save the form.
-    this.updateSaving(true, saveTest);
-  }
-
-  handleSummaryClick(event) {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    range.selectNodeContents(event.target);
-
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand("copy");
+    this.stateUtil.updateSaving(true, saveTest);
   }
 
   handleTypeaheadChangeCommon(fieldKey, target) {
@@ -262,21 +243,21 @@ class Home extends Component {
       const field = target[0];
       if (typeof field == 'string') {
         value = field;
-        this.updateFormValue(fieldKey, field);
+        this.stateUtil.updateFormValue(fieldKey, field);
       } else {
         value = field.label;
-        this.updateFormValue(fieldKey, field.label);
+        this.stateUtil.updateFormValue(fieldKey, field.label);
       }
     } else {
       value = target;
-      this.updateFormValue(fieldKey, target);
+      this.stateUtil.updateFormValue(fieldKey, target);
     }
-    this.testFieldValidityCommon(fieldKey, value);
+    this.validUtil.testFieldValidityCommon(fieldKey, value, this.generateSummary);
   }
 
   handleTypeaheadInputChangeCommon(fieldKey, val) {
-    this.testFieldValidityCommon(fieldKey, val);
-    this.updateFormValue(fieldKey, val);
+    this.validUtil.testFieldValidityCommon(fieldKey, val, this.generateSummary);
+    this.stateUtil.updateFormValue(fieldKey, val);
   }
 
   resetForm() {
@@ -289,107 +270,7 @@ class Home extends Component {
     this.typeaheadRefs[key] = typeahead;
   }
 
-  testDatepickerValidity(val) {
-    this.testFieldValidityCommon('dateOfTest', val);
-  }
 
-  testFieldValidityCommon(fieldKey, val) {
-    let formErrorVal = null;
-    if (!val) {
-      formErrorVal = 'This field cannot be empty.';
-    }
-    this.updateFormErrorValue(fieldKey, formErrorVal);
-  }
-
-  testFormCompletion() {
-    let summaryVal = '';
-    if (!this.isFormInvalid) {
-      let isComplete = true;
-
-      for (const key in this.state.form) {
-        if (this.state.ignoreCompletionFieldKeys.indexOf(key) != -1) {
-          continue;
-        }
-        if (!this.state.form[key]) {
-          isComplete = false;
-          break;
-        }
-      }
-
-      if (isComplete) {
-        summaryVal = this.generateSummary();
-      }
-    }
-    this.updateFormValue('summary', summaryVal);
-  }
-
-  testFormValidity() {
-    let isInvalid = false;
-    for (const errorKey in this.state.formErrors) {
-      const error = this.state.formErrors[errorKey];
-      if (error) {
-        isInvalid = true;
-        break;
-      }
-    }
-    this.setState({ isFormInvalid: isInvalid }, this.testFormCompletion);
-  }
-
-  testPaceFieldValidity(fieldKey, vmVal, val) {
-    let formErrorVal = null;
-    if (!vmVal) {
-      formErrorVal = 'This field cannot be empty.';
-    } else if (isNaN(val)) {
-      formErrorVal = 'This field must be a number.';
-    } else if (val === 0 || val < 0) {
-      formErrorVal = 'This field must be greater than 0.';
-    } else if (val > 9999.99) {
-      formErrorVal = 'This value cannot be this large.';
-    }
-    this.updateFormErrorValue(fieldKey, formErrorVal);
-  }
-  
-  updateFormErrorValue(key, val) {
-    const formObj = Object.assign({}, this.state.formErrors, { [key]: val })
-    this.setState({ formErrors: formObj }, this.testFormValidity);
-  }
-
-  /**
-   * Use when updating a singular form value on the state.
-   * @param {string} key - Name of the form value.
-   * @param {string} val - Value being assigned.
-   * @param {function} postSetFn - Optional functionality to be performed after setState.
-   */
-  updateFormValue(key, val, postSetFn) {
-    const formObj = Object.assign({}, this.state.form, { [key]: val })
-    this.setState({ form: formObj }, postSetFn);
-  }
-  
-  /**
-   * Use when updating multiple form values on the state.
-   * @param {object} map - Name to value map.
-   * @param {function} postSetFn - Optional functionality to be performed after setState.
-   */
-  updateMultipleFormValue(map, postSetFn) {
-    const formObj = Object.assign({}, this.state.form, map)
-    this.setState({ form: formObj }, postSetFn);
-  }
-  
-  updateMultipleTypeaheadOptions(map, postSetFn) {
-    const formObj = Object.assign({}, this.state.typeaheadOptions, map)
-    this.setState({ typeaheadOptions: formObj }, postSetFn);
-  }
-
-  updateSaving(val, postSetFn) {
-    this.setState({ saving: val }, postSetFn);
-  }
-
-  updateVmValue(key, val) {
-    const vmObj = Object.assign({}, this.state.vm, { [key]: val })
-    this.setState({ vm: vmObj });
-  }
-  
-  
   render() {
     return (
 
@@ -503,7 +384,7 @@ class Home extends Component {
           </div>
 
           <ConditionalSummary
-            handleSummaryClick={this.handleSummaryClick}
+            handleSummaryClick={handleCopyClick}
             isFormInvalid={this.state.isFormInvalid}
             summary={this.state.form.summary}
             disabled={this.state.saving}

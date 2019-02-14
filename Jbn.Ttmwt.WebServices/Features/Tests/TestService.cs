@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-
-using Jbn.Ttmwt.DAL;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Jbn.Ttmwt.DAL;
 
 namespace Jbn.Ttmwt.WebServices.Features.Tests
 {
